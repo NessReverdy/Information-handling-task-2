@@ -1,4 +1,4 @@
-package org.nessrev;
+package org.nessrev.infohandle;
 
 public class Main {
   public static void main(String[] args) {
