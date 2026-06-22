@@ -5,6 +5,6 @@ public enum TextType {
   PARAGRAPH,
   SENTENCE,
   LEXEME,
-  WORLD,
+  WORD,
   CHAR
 }

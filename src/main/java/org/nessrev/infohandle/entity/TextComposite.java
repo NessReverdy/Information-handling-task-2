@@ -14,7 +14,6 @@ public class TextComposite implements TextComponent {
     this.type = type;
   }
 
-
   @Override
   public void add(TextComponent component) {
     if (component != null){
@@ -59,19 +58,26 @@ public class TextComposite implements TextComponent {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder("TextComposite{");
-    sb.append("type=").append(type);
-    sb.append(", components=[");
+    return buildString(0);
+  }
 
-    for (int i = 0; i < components.size(); i++) {
-      sb.append(components.get(i));
+  private String buildString(int level) {
+    StringBuilder sb = new StringBuilder();
 
-      if (i < components.size() - 1) {
-        sb.append(", ");
+    sb.append("  ".repeat(level))
+      .append(type)
+      .append("\n");
+
+    for (TextComponent component : components) {
+      if (component instanceof TextComposite composite) {
+        sb.append(composite.buildString(level + 1));
+      } else {
+        sb.append("  ".repeat(level + 1))
+          .append(component)
+          .append("\n");
       }
     }
 
-    sb.append("]}");
     return sb.toString();
   }
 }

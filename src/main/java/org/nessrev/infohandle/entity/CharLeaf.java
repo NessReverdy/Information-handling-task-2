@@ -3,6 +3,7 @@ package org.nessrev.infohandle.entity;
 import org.nessrev.infohandle.type.TextType;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CharLeaf implements TextComponent{
   private final char value;
@@ -34,6 +35,24 @@ public class CharLeaf implements TextComponent{
 
   @Override
   public String recover() {
+    return String.valueOf(value);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CharLeaf charLeaf = (CharLeaf) o;
+    return value == charLeaf.value && type == charLeaf.type;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value, type);
+  }
+
+  @Override
+  public String toString() {
     return String.valueOf(value);
   }
 }
