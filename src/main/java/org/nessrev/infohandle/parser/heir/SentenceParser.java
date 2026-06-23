@@ -9,13 +9,16 @@ import org.nessrev.infohandle.parser.Parser;
 import org.nessrev.infohandle.parser.TextParser;
 import org.nessrev.infohandle.type.TextType;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SentenceParser extends TextParser {
   private final Logger logger = LogManager.getLogger();
+  private static final Pattern SENTENCE_PATTERN = Pattern.compile(SENTENCE_MATCH_REGEX);
 
   public SentenceParser(Parser parser) {
     setNext(parser);
   }
-
 
   @Override
   public TextComponent parse(String text) throws TextException {
@@ -25,19 +28,26 @@ public class SentenceParser extends TextParser {
       return next(text);
     }
 
-    String[] sentences = text.split(SENTENCE_SPLIT_REGEX);
-    logger.info("Sentence found: {}", sentences.length);
+    logger.info("Parsing sentences");
 
-    TextComposite fullText = new TextComposite(TextType.PARAGRAPH);
+    TextComposite paragraph = new TextComposite(TextType.SENTENCE_LIST);
+    Matcher matcher = SENTENCE_PATTERN.matcher(text);
 
-    for (String sentence : sentences) {
-      TextComposite paragraphComponent = new TextComposite(TextType.SENTENCE);
-      paragraphComponent.add(next(sentence));
+    while (matcher.find()) {
+      String sentence = matcher.group();
 
-      fullText.add(paragraphComponent);
+      TextComposite sentenceComponent =
+        new TextComposite(TextType.SENTENCE);
+
+      TextComponent component = next(sentence);
+
+      if (component != null) {
+        sentenceComponent.add(component);
+        paragraph.add(sentenceComponent);
+      }
     }
 
-    return fullText;
+    return paragraph;
   }
 
   @Override

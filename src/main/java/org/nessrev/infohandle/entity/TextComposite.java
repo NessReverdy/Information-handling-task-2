@@ -40,7 +40,29 @@ public class TextComposite implements TextComponent {
 
   @Override
   public String recover() {
-    return "";
+    StringBuilder builder = new StringBuilder();
+
+    for (TextComponent component : components) {
+      builder.append(component.recover());
+    }
+
+    return builder.toString();
+  }
+
+  @Override
+  public String getValue() {
+    StringBuilder builder = new StringBuilder();
+
+    for (TextComponent component : components) {
+      builder.append(component.getValue());
+    }
+
+    return builder.toString();
+  }
+
+  @Override
+  public boolean isLeaf() {
+    return false;
   }
 
   @Override

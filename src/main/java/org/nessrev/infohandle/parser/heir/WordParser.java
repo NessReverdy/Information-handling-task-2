@@ -1,7 +1,5 @@
 package org.nessrev.infohandle.parser.heir;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.nessrev.infohandle.entity.CharLeaf;
 import org.nessrev.infohandle.entity.TextComponent;
 import org.nessrev.infohandle.entity.TextComposite;
@@ -10,12 +8,9 @@ import org.nessrev.infohandle.parser.Parser;
 import org.nessrev.infohandle.parser.TextParser;
 import org.nessrev.infohandle.type.TextType;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WordParser extends TextParser {
-  private final Logger logger = LogManager.getLogger();
-
   public WordParser(Parser parser) {
     setNext(parser);
   }
@@ -29,14 +24,7 @@ public class WordParser extends TextParser {
     }
 
     TextComposite wordComposite = new TextComposite(TextType.WORD);
-    Matcher matcher = Pattern.compile(WORD_FIND_REGEX).matcher(text);
-
-    while (matcher.find()) {
-      wordComposite.add(next(matcher.group()));
-    }
-
-    String remaining = text.replaceAll(WORD_FIND_REGEX, "");
-    for (char symbol : remaining.toCharArray()) {
+    for (char symbol : text.toCharArray()) {
       wordComposite.add(new CharLeaf(symbol));
     }
     return wordComposite;

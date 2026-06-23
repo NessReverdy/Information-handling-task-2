@@ -9,8 +9,12 @@ import org.nessrev.infohandle.parser.Parser;
 import org.nessrev.infohandle.parser.TextParser;
 import org.nessrev.infohandle.type.TextType;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ParagraphParser extends TextParser {
   private final Logger logger = LogManager.getLogger();
+  private static final Pattern PARAGRAPH_PATTERN = Pattern.compile(PARAGRAPH_MATCH_REGEX, Pattern.DOTALL);
 
   public ParagraphParser(Parser parser) {
     setNext(parser);
@@ -24,13 +28,23 @@ public class ParagraphParser extends TextParser {
       return next(text);
     }
 
-    String[] paragraphs = text.split(PARAGRAPH_SPLIT_REGEX);
-    logger.info("Paragraphs found: {}", paragraphs.length);
+    logger.info("Parsing paragraphs");
 
     TextComposite fullText = new TextComposite(TextType.TEXT);
+    Matcher matcher = PARAGRAPH_PATTERN.matcher(text);
 
-    for (String paragraph : paragraphs) {
-      fullText.add(next(paragraph));
+    while (matcher.find()) {
+      String paragraph = matcher.group();
+
+      TextComponent component = next(paragraph);
+
+      if (component != null) {
+        TextComposite paragraphComponent =
+          new TextComposite(TextType.PARAGRAPH);
+
+        paragraphComponent.add(component);
+        fullText.add(paragraphComponent);
+      }
     }
 
     return fullText;
