@@ -1,12 +1,10 @@
-package org.nessrev.infohandle.parser.heir;
+package org.nessrev.infohandle.parser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nessrev.infohandle.entity.TextComponent;
 import org.nessrev.infohandle.entity.TextComposite;
 import org.nessrev.infohandle.exception.TextException;
-import org.nessrev.infohandle.parser.Parser;
-import org.nessrev.infohandle.parser.TextParser;
 import org.nessrev.infohandle.type.TextType;
 
 import java.util.regex.Matcher;
@@ -14,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class ParagraphParser extends TextParser {
   private final Logger logger = LogManager.getLogger();
-  private static final Pattern PARAGRAPH_PATTERN = Pattern.compile(PARAGRAPH_MATCH_REGEX, Pattern.DOTALL);
+  private static final Pattern PARAGRAPH_MATCH_PATTERN = Pattern.compile(".+?(?:\\n+|$)", Pattern.DOTALL);
 
   public ParagraphParser(Parser parser) {
     setNext(parser);
@@ -31,7 +29,7 @@ public class ParagraphParser extends TextParser {
     logger.info("Parsing paragraphs");
 
     TextComposite fullText = new TextComposite(TextType.TEXT);
-    Matcher matcher = PARAGRAPH_PATTERN.matcher(text);
+    Matcher matcher = PARAGRAPH_MATCH_PATTERN.matcher(text);
 
     while (matcher.find()) {
       String paragraph = matcher.group();

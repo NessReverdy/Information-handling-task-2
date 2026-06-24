@@ -2,8 +2,7 @@ package org.nessrev.infohandle;
 
 import org.nessrev.infohandle.entity.TextComponent;
 import org.nessrev.infohandle.exception.TextException;
-import org.nessrev.infohandle.parser.Parser;
-import org.nessrev.infohandle.parser.heir.*;
+import org.nessrev.infohandle.parser.*;
 import org.nessrev.infohandle.reader.TextReaderService;
 import org.nessrev.infohandle.reader.impl.TextReaderServiceImpl;
 import org.nessrev.infohandle.service.CommonTaskService;

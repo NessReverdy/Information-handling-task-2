@@ -15,7 +15,5 @@ public interface TextComponent {
 
   String recover();
 
-  String getValue();
-
   boolean isLeaf();
 }

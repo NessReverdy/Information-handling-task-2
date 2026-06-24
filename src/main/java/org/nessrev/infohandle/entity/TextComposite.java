@@ -50,17 +50,6 @@ public class TextComposite implements TextComponent {
   }
 
   @Override
-  public String getValue() {
-    StringBuilder builder = new StringBuilder();
-
-    for (TextComponent component : components) {
-      builder.append(component.getValue());
-    }
-
-    return builder.toString();
-  }
-
-  @Override
   public boolean isLeaf() {
     return false;
   }

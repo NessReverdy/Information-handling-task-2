@@ -1,11 +1,9 @@
-package org.nessrev.infohandle.parser.heir;
+package org.nessrev.infohandle.parser;
 
 import org.nessrev.infohandle.entity.CharLeaf;
 import org.nessrev.infohandle.entity.TextComponent;
 import org.nessrev.infohandle.entity.TextComposite;
 import org.nessrev.infohandle.exception.TextException;
-import org.nessrev.infohandle.parser.Parser;
-import org.nessrev.infohandle.parser.TextParser;
 import org.nessrev.infohandle.type.TextType;
 
 import java.util.regex.Pattern;

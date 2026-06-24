@@ -4,7 +4,6 @@ public enum TextType {
   TEXT,
   PARAGRAPH,
   SENTENCE,
-  SENTENCE_LIST,
   LEXEME,
   WORD,
   CHAR

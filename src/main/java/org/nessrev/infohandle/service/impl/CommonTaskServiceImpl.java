@@ -3,7 +3,6 @@ package org.nessrev.infohandle.service.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nessrev.infohandle.entity.TextComponent;
-import org.nessrev.infohandle.entity.TextComposite;
 import org.nessrev.infohandle.service.CommonTaskService;
 import org.nessrev.infohandle.type.TextType;
 
@@ -79,7 +78,7 @@ public class CommonTaskServiceImpl implements CommonTaskService {
 
     for (TextComponent sentence : sortedSentences) {
       logger.debug("Sentence: '{}', count of '{}': {}",
-        sentence.getValue(),
+        sentence.recover(),
         letter,
         countLetter(sentence, letter));
     }
@@ -106,7 +105,7 @@ public class CommonTaskServiceImpl implements CommonTaskService {
 
     if (component.getType() == TextType.WORD) {
 
-      String word = component.getValue()
+      String word = component.recover()
         .replaceAll("[^a-zA-Zа-яА-ЯёЁ']", "")
         .toLowerCase();
 
@@ -138,7 +137,7 @@ public class CommonTaskServiceImpl implements CommonTaskService {
   }
 
   private int countLetter(TextComponent sentence, char letter) {
-    String value = sentence.getValue();
+    String value = sentence.recover();
 
     return (int) value.chars()
       .filter(ch -> ch == Character.toLowerCase(letter)

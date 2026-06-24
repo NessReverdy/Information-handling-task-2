@@ -1,18 +1,16 @@
-package org.nessrev.infohandle.parser.heir;
+package org.nessrev.infohandle.parser;
 
 import org.nessrev.infohandle.entity.CharLeaf;
 import org.nessrev.infohandle.entity.TextComponent;
 import org.nessrev.infohandle.entity.TextComposite;
 import org.nessrev.infohandle.exception.TextException;
-import org.nessrev.infohandle.parser.Parser;
-import org.nessrev.infohandle.parser.TextParser;
 import org.nessrev.infohandle.type.TextType;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LexemeParser extends TextParser {
-  private static final Pattern LEXEME_PATTERN = Pattern.compile(LEXEME_CHECK_REGEX);
+  private static final Pattern LEXEME_CHECK_PATTERN = Pattern.compile("\\S+");
 
   public LexemeParser(Parser parser) {
     setNext(parser);
@@ -22,9 +20,9 @@ public class LexemeParser extends TextParser {
   public TextComponent parse(String text) throws TextException {
     checkText(text);
 
-    Matcher matcher = LEXEME_PATTERN.matcher(text);
+    Matcher matcher = LEXEME_CHECK_PATTERN.matcher(text);
 
-    if (!matcher.find()) {
+    if (!canParse(text)) {
       return next(text);
     }
 
@@ -57,6 +55,6 @@ public class LexemeParser extends TextParser {
 
   @Override
   public boolean canParse(String text) {
-    return text.matches(LEXEME_CHECK_REGEX);
+    return LEXEME_CHECK_PATTERN.matcher(text).find();
   }
 }

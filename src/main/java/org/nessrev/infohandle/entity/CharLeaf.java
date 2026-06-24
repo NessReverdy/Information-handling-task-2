@@ -35,11 +35,6 @@ public class CharLeaf implements TextComponent{
 
   @Override
   public String recover() {
-    return String.valueOf(value);
-  }
-
-  @Override
-  public String getValue() {
     return toString();
   }
 
